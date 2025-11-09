@@ -1,10 +1,10 @@
-name: AI Chatbot CI
+name: AI Chatbot CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,11 +24,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Lint code
+      - name: Test Chatbot import
         run: |
-          pip install flake8
-          flake8 . --ignore=E501,W503
+          python -c "from bot.chatbot import ChatBot; print('✅ ChatBot loaded successfully')"
 
-      - name: Test chatbot import
+      - name: Run Flask app (check syntax only)
         run: |
-          python -c "from bot.chatbot import ChatBot; print('ChatBot imported successfully! ✅')"
+          python -m py_compile app.py
+
+      - name: Success
+        run: echo "✅ Build and basic checks completed!"

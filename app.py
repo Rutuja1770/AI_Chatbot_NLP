@@ -6,14 +6,14 @@ app = Flask(__name__)
 
 chatbot = ChatBot()
 
-@app.route("/")
 
+@app.route("/")
 def home():
 
     return render_template("index.html")
 
-@app.route("/ask", methods=["POST"])
 
+@app.route("/ask", methods=["POST"])
 def ask():
 
     user_message = request.json["message"]
@@ -26,10 +26,7 @@ def ask():
 
     return jsonify({"reply": response})
 
+
 if __name__ == "__main__":
 
     app.run(debug=True, host="0.0.0.0", port=5000)
-
-
-
-

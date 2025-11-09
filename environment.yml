@@ -1,0 +1,15 @@
+name: ai_chatbot_nlp
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - Flask
+      - torch
+      - transformers
+      - sentence-transformers
+      - scikit-learn
+      - pandas
+      - numpy
